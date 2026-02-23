@@ -2,6 +2,14 @@
     let cfg = config.modules.system;
     in with lib;
     {
+        imports =
+        [
+        ../options/login-manager.nix
+        ../login-manager/login-manager.nix
+        ../environments/kde.nix
+        ];
+
+
         options.modules.system =
         {
             boot =
