@@ -6,7 +6,6 @@
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
       ../../modules/system
-      ../../modules/profiles/environments/kde.nix
 
     ];
 
