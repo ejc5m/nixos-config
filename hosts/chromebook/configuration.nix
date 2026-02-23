@@ -11,9 +11,6 @@
 
     modules.system =
     {
-      boot.enable = true;
-      boot.kernel = pkgs.linuxPackages_6_18;
-
       boot =
       {
         enable = true;
@@ -27,6 +24,10 @@
         {
           isAdmin = true;
           home = ./home.nix;
+        };
+        testUser =
+        {
+          home = ./home1.nix;
         };
       };
 

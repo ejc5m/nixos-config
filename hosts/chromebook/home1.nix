@@ -13,12 +13,9 @@
     };
 
 
-    programs.git.enable = true;
 
     home.packages = with pkgs;
     [
-        firefox
-        kdePackages.kate
-        discord
+
     ];
 }
