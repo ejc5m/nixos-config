@@ -19,7 +19,7 @@
         enable = true;
         kernel = pkgs.linuxPackages_latest;
         bootloader = "systemd-boot";
-      }
+      };
 
       users =
       {
