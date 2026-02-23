@@ -1,24 +1,20 @@
-{ pkgs, inputs, ...}:
+{ pkgs, inputs, ... }:
 {
-    imports =
-    [
+  imports = [
 
-    ];
+  ];
 
-    home.stateVersion = "25.11";
-    programs.home-manager.enable = true;
-    nixpkgs.config =
-    {
-        allowUnfree = true;
-    };
+  home.stateVersion = "25.11";
+  programs.home-manager.enable = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
 
+  programs.git.enable = true;
 
-    programs.git.enable = true;
-
-    home.packages = with pkgs;
-    [
-        firefox
-        kdePackages.kate
-        discord
-    ];
+  home.packages = with pkgs; [
+    firefox
+    kdePackages.kate
+    discord
+  ];
 }

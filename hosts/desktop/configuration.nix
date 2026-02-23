@@ -1,44 +1,44 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.default
-      ../../modules/system
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    inputs.home-manager.nixosModules.default
+    ../../modules/system
 
-    ];
+  ];
 
-    modules.system =
-    {
-      boot =
-      {
-        enable = true;
-        kernel = pkgs.linuxPackages_6_18;
-        bootloader = "grub";
-      };
-
-      users =
-      {
-        ejc5million =
-        {
-          isAdmin = true;
-          home = ./home.nix;
-        };
-      };
-
-      network.enable = true;
-      audio.enable = true;
-      bluetooth.enable = true;
-      printing.enable = true;
+  modules.system = {
+    boot = {
+      enable = true;
+      kernel = pkgs.linuxPackages_6_18;
+      bootloader = "grub";
     };
-    security.polkit.enable = true;
 
-    environments.kde.enable = true;
-    environments.displayManager = "sddm";
-   # services.xserver.displayManager.lightdm.greeters.slick.enable = true;
-    profiles.gaming.enable = true;
+    users = {
+      ejc5million = {
+        isAdmin = true;
+        home = ./home.nix;
+      };
+    };
 
+    network.enable = true;
+    audio.enable = true;
+    bluetooth.enable = true;
+    printing.enable = true;
+  };
+  security.polkit.enable = true;
+
+  environments.kde.enable = true;
+  environments.displayManager = "sddm";
+  # services.xserver.displayManager.lightdm.greeters.slick.enable = true;
+  profiles.gaming.enable = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";

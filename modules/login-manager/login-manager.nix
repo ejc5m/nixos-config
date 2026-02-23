@@ -4,15 +4,18 @@ let
   dm = config.environments.displayManager;
 in
 {
- options.environments.displayManager = lib.mkOption
-  {
-    type = lib.types.enum [ "sddm" "greetd" "gdm" "lightdm" ];
+  options.environments.displayManager = lib.mkOption {
+    type = lib.types.enum [
+      "sddm"
+      "greetd"
+      "gdm"
+      "lightdm"
+    ];
     default = "sddm";
     description = "The display manager to use for the system";
   };
 
-  config =
-  {
+  config = {
     # Enable the chosen display manager
     services.displayManager.sddm.enable = dm == "sddm";
     services.greetd.enable = dm == "greetd";

@@ -1,46 +1,45 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.default
-      ../../modules/system
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    inputs.home-manager.nixosModules.default
+    ../../modules/system
 
-    ];
+  ];
 
-    modules.system =
-    {
-      boot =
-      {
-        enable = true;
-        kernel = pkgs.linuxPackages_latest;
-        bootloader = "systemd-boot";
-      };
-
-      users =
-      {
-        ejc5million =
-        {
-          isAdmin = true;
-          home = ./home.nix;
-        };
-        testUser =
-        {
-          home = ./home1.nix;
-        };
-      };
-
-      network.enable = true;
-      audio.enable = true;
-      bluetooth.enable = true;
-      printing.enable = true;
+  modules.system = {
+    boot = {
+      enable = true;
+      kernel = pkgs.linuxPackages_latest;
+      bootloader = "systemd-boot";
     };
-    security.polkit.enable = true;
 
-    profiles.environments.kde.enable = true;
-    profiles.displayManager = "sddm";
+    users = {
+      ejc5million = {
+        isAdmin = true;
+        home = ./home.nix;
+      };
+      testUser = {
+        home = ./home1.nix;
+      };
+    };
 
+    network.enable = true;
+    audio.enable = true;
+    bluetooth.enable = true;
+    printing.enable = true;
+  };
+  security.polkit.enable = true;
+
+  profiles.environments.kde.enable = true;
+  profiles.displayManager = "sddm";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -57,13 +56,11 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
-
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
