@@ -12,6 +12,15 @@
                     type = types.raw;
                     default = pkgs.linuxPackages_latest;
                 };
+                bootloader = mkOption
+                {
+                    type = types.enum [ "grub" "systemd-boot" ];
+                    default = "systemd-boot";
+                    description =
+                    ''
+                        Bootloader to use. Must be either \"grub" or \"systemd-boot".
+                    '';
+                };
             };
 
             users = mkOption
@@ -98,7 +107,7 @@
                         })
                         cfg.users;
 
-               #hostname
+            #hostname
                 networking.hostName = cfg.network.hostName;
                     }
 
@@ -120,21 +129,25 @@
                     })
 
 
+(mkIf cfg.boot.enable (
+mkMerge [
+    (mkIf (cfg.boot.bootloader == "grub") {
+    boot.loader.grub.enable = true;
+    boot.loader.grub.device = "/dev/sda";
+    boot.loader.grub.useOSProber = true;
+    })
 
-                (mkIf cfg.boot.enable
-                {
-                   # boot.kernelPackages = cfg.boot.kernel;
-                   # boot.loader.systemd-boot.enable = true;
-                    #boot.loader.efi.canTouchEfiVariables = true;
-                   # boot.loader.timeout = 3;
-                   # boot.kernelParams = [ "quiet" "loglevel=3" ];
-                   # boot.plymouth.enable = true;
-                    #boot.initrd.systemd.enable = true;
-
-                      boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.useOSProber = true;
-                })
+    (mkIf (cfg.boot.bootloader == "systemd-boot") {
+    boot.kernelPackages = cfg.boot.kernel;
+    boot.loader.systemd-boot.enable = true;
+    boot.loader.efi.canTouchEfiVariables = true;
+    boot.loader.timeout = 3;
+    boot.kernelParams = [ "quiet" "loglevel=3" ];
+    boot.plymouth.enable = true;
+    boot.initrd.systemd.enable = true;
+    })
+]
+))
 
                 (mkIf cfg.network.enable
                 {

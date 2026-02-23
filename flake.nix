@@ -37,6 +37,11 @@
           system = "x86_64-linux";
           pathName = "desktop";
         };
+        chromebook = mkSystem
+        {
+          system = "x86_64-linux";
+          pathName = "chromebook";
+        };
         };
       };
     }
