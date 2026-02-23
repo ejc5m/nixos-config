@@ -1,6 +1,6 @@
 { lib, config, pkgs, ...}: with lib;
 {
-    options.environments.kde.enable = mkEnableOption "KDE Plasma Desktop";
+    options.profiles.environments.kde.enable = mkEnableOption "KDE Plasma Desktop";
 
     config = mkIf config.profiles.environments.kde.enable
     {
