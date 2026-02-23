@@ -11,8 +11,12 @@
 
     modules.system =
     {
-      boot.enable = true;
-      boot.kernel = pkgs.linuxPackages_6_18;
+      boot =
+      {
+        enable = true;
+        kernel = pkgs.linuxPackages_6_18;
+        bootloader = "grub";
+      };
 
       users =
       {
@@ -30,7 +34,10 @@
     };
     security.polkit.enable = true;
 
-
+    environments.kde.enable = true;
+    environments.displayManager = "sddm";
+   # services.xserver.displayManager.lightdm.greeters.slick.enable = true;
+    profiles.gaming.enable = true;
 
 
   # Select internationalisation properties.
@@ -48,20 +55,11 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
-
-  # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
-
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

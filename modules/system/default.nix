@@ -5,8 +5,8 @@
         imports =
         [
         ../environments/kde.nix
-        ../options/login-manager.nix
         ../login-manager/login-manager.nix
+        ../profiles/gaming.nix
         ];
 
 

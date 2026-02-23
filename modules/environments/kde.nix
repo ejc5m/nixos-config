@@ -1,8 +1,8 @@
 { lib, config, pkgs, ...}: with lib;
 {
-    options.profiles.environments.kde.enable = mkEnableOption "KDE Plasma Desktop";
+    options.environments.kde.enable = mkEnableOption "KDE Plasma Desktop";
 
-    config = mkIf config.profiles.environments.kde.enable
+    config = mkIf config.environments.kde.enable
     {
         services.xserver.enable = true;
         services.desktopManager.plasma6.enable = true;

@@ -1,15 +1,22 @@
 { config, lib, ... }:
 
 let
-  dm = config.profiles.displayManager;
+  dm = config.environments.displayManager;
 in
 {
+ options.environments.displayManager = lib.mkOption
+  {
+    type = lib.types.enum [ "sddm" "greetd" "gdm" "lightdm" ];
+    default = "sddm";
+    description = "The display manager to use for the system";
+  };
+
   config =
   {
     # Enable the chosen display manager
-    services.xserver.displayManager.sddm.enable = dm == "sddm";
+    services.displayManager.sddm.enable = dm == "sddm";
     services.greetd.enable = dm == "greetd";
-    services.xserver.displayManager.gdm.enable = dm == "gdm";
+    services.displayManager.gdm.enable = dm == "gdm";
     services.xserver.displayManager.lightdm.enable = dm == "lightdm";
   };
 }
