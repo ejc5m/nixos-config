@@ -10,6 +10,6 @@ in
     services.xserver.displayManager.sddm.enable = dm == "sddm";
     services.greetd.enable = dm == "greetd";
     services.xserver.displayManager.gdm.enable = dm == "gdm";
-    services.xserver.displayManager.lxdm.enable = dm == "lxdm";
+    services.xserver.displayManager.lightdm.enable = dm == "lightdm";
   };
 }
